@@ -19,6 +19,8 @@ FileInputFormat<WordDocumentKey, WordNumDocumentWordNumValue>{
 			InputSplit split, TaskAttemptContext context) throws IOException,
 			InterruptedException {
 		// TODO A	uto-generated method stub
+		// fuck you babk
+		System.out.println();
 		return null;
 	}
 
