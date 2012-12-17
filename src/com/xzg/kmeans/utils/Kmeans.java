@@ -172,15 +172,15 @@ public class Kmeans extends Configured implements Tool {
 		job51.setInputFormatClass(SequenceFileInputFormat.class);
 
 		job51.setMapperClass(M51VocabularyMapper.class);
-//		job51.setReducerClass(R51VocabularyReducer.class);
+		job51.setReducerClass(R51VocabularyReducer.class);
 
-//		job51.setMapOutputKeyClass(Text.class);
-//		job51.setMapOutputValueClass(Text.class);
+		job51.setMapOutputKeyClass(Text.class);
+		job51.setMapOutputValueClass(Text.class);
 
-//		job51.setOutputKeyClass(NullWritable.class);
-//		job51.setOutputValueClass(VocabularyValue.class);
-		job51.setOutputKeyClass(Text.class);
-		job51.setOutputValueClass(Text.class);
+		job51.setOutputKeyClass(NullWritable.class);
+		job51.setOutputValueClass(VocabularyValue.class);
+//		job51.setOutputKeyClass(Text.class);
+//		job51.setOutputValueClass(Text.class);
 
 		job51.waitForCompletion(true);
 //		ControlledJob ctljob1 = new ControlledJob(job, null);
@@ -221,7 +221,7 @@ public class Kmeans extends Configured implements Tool {
 		// Create filesystem
 		FileSystem fs = FileSystem.get(conf);
 
-		Path pathreg = new Path("/user/kevin/output51");
+		Path pathreg = new Path("output51");
 		// delete if exist
 		FileStatus[] filestatuses = fs.globStatus(pathreg);
 		if (filestatuses != null) {

@@ -107,9 +107,9 @@ public class WordTFIDFValues implements WritableComparable {
 	@Override
 	public void readFields(DataInput in) throws IOException {
 		// TODO Auto-generated method stub
-		size = in.readLong();
+		Long l = in.readLong();
 		System.out.println("WordTFIDFValues ReadField: " + size);
-		long l = size.longValue();
+//		long l = size.longValue();
 		while (l > 0) {
 			l--;
 			WordTFIDFValue wTFIDFTmp = new WordTFIDFValue();
