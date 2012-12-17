@@ -9,16 +9,15 @@ import org.apache.hadoop.io.WritableComparable;
 public class WordNumDocumentWordNumDocumentNumValue implements
 		WritableComparable {
 
-
-	Integer wordNum;
+	Long wordNum;
 	Long documentWordNum;
 	Long documentNum;
 
-	public Integer getWordNum() {
+	public Long getWordNum() {
 		return wordNum;
 	}
 
-	public void setWordNum(Integer wordNum) {
+	public void setWordNum(Long wordNum) {
 		this.wordNum = wordNum;
 	}
 
@@ -38,7 +37,7 @@ public class WordNumDocumentWordNumDocumentNumValue implements
 		this.documentNum = documentNum;
 	}
 
-	public WordNumDocumentWordNumDocumentNumValue(Integer wordNum,
+	public WordNumDocumentWordNumDocumentNumValue(Long wordNum,
 			Long documentWordNum, Long documentNum) {
 
 		this.wordNum = wordNum;
@@ -47,7 +46,7 @@ public class WordNumDocumentWordNumDocumentNumValue implements
 	}
 
 	public WordNumDocumentWordNumDocumentNumValue() {
-		this.wordNum = 0;
+		this.wordNum = 0L;
 		this.documentWordNum = 0L;
 		this.documentNum = 0L;
 	}
@@ -71,7 +70,7 @@ public class WordNumDocumentWordNumDocumentNumValue implements
 	@Override
 	public void readFields(DataInput in) throws IOException {
 		// TODO Auto-generated method stub
-		this.wordNum = in.readInt();
+		this.wordNum = in.readLong();
 		this.documentWordNum = in.readLong();
 		this.documentNum = in.readLong();
 	}
@@ -79,7 +78,7 @@ public class WordNumDocumentWordNumDocumentNumValue implements
 	@Override
 	public void write(DataOutput out) throws IOException {
 		// TODO Auto-generated method stub
-		out.writeInt(this.wordNum);
+		out.writeLong(this.wordNum);
 		out.writeLong(this.documentWordNum);
 		out.writeLong(this.documentNum);
 	}
@@ -99,14 +98,10 @@ public class WordNumDocumentWordNumDocumentNumValue implements
 				&& this.documentWordNum.equals(wndwndn.getDocumentWordNum())
 				&& this.documentNum.equals(wndwndn.getDocumentNum());
 	}
-	
+
 	@Override
 	public String toString() {
-		return "WordNumDocumentWordNumDocumentNumValue [wordNum=" + wordNum
-				+ ", documentWordNum=" + documentWordNum + ", documentNum="
-				+ documentNum + "]";
+		return wordNum + "," + documentWordNum + "," + documentNum;
 	}
-
-
 
 }

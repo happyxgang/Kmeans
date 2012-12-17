@@ -11,19 +11,20 @@ import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.LineRecordReader;
 
 import com.xzg.kmeans.io.customtypes.WordDocumentKey;
+import com.xzg.kmeans.io.customtypes.WordNumDocumentWordNumDocumentNumValue;
 import com.xzg.kmeans.io.customtypes.WordNumDocumentWordNumValue;
 
-public class MR3RecordReader extends
-		RecordReader<WordDocumentKey, WordNumDocumentWordNumValue> {
+public class MR4RecordReader extends
+		RecordReader<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue> {
 
 	private LineRecordReader lineReader;
 	private WordDocumentKey wdkey;
-	private WordNumDocumentWordNumValue value;
+	private WordNumDocumentWordNumDocumentNumValue value;
 
-	public MR3RecordReader() {
+	public MR4RecordReader() {
 		lineReader = new LineRecordReader();
 		wdkey = new WordDocumentKey();
-		value = new WordNumDocumentWordNumValue();
+		value = new WordNumDocumentWordNumDocumentNumValue();
 	}
 
 	@Override
@@ -48,9 +49,10 @@ public class MR3RecordReader extends
 					return false;
 				}
 				String[] valueStr = result[1].split(",");
-				if (valueStr.length == 2) {
+				if (valueStr.length == 3) {
 					value.setWordNum(Long.valueOf(valueStr[0].trim()));
 					value.setDocumentWordNum((Long.valueOf(valueStr[1].trim())));
+					value.setDocumentNum(Long.valueOf(valueStr[2].trim()));
 				} else {
 					return false;
 				}
@@ -71,7 +73,7 @@ public class MR3RecordReader extends
 	}
 
 	@Override
-	public WordNumDocumentWordNumValue getCurrentValue() throws IOException,
+	public WordNumDocumentWordNumDocumentNumValue getCurrentValue() throws IOException,
 			InterruptedException {
 		// TODO Auto-generated method stub
 		return this.value;

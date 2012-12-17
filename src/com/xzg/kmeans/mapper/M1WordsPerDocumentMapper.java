@@ -21,7 +21,7 @@ import com.xzg.kmeans.io.customtypes.WordDocumentKey;
 
 public class M1WordsPerDocumentMapper extends
 		Mapper<Object, Text, WordDocumentKey, IntWritable> {
-	enum DocumentNum {
+	public enum DocumentNum {
 		DocumentNumCounter
 	}
 

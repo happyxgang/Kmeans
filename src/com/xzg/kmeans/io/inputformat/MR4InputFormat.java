@@ -9,19 +9,21 @@ import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 
 import com.xzg.kmeans.io.customtypes.WordDocumentKey;
+import com.xzg.kmeans.io.customtypes.WordNumDocumentWordNumDocumentNumValue;
 import com.xzg.kmeans.io.customtypes.WordNumDocumentWordNumValue;
 import com.xzg.kmeans.io.recordreader.MR3RecordReader;
+import com.xzg.kmeans.io.recordreader.MR4RecordReader;
 
-public class MR3InputFormat extends
-FileInputFormat<WordDocumentKey, WordNumDocumentWordNumValue>{
+public class MR4InputFormat extends
+FileInputFormat<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue>{
 
 	@Override
-	public RecordReader<WordDocumentKey, WordNumDocumentWordNumValue> createRecordReader(
+	public RecordReader<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue> createRecordReader(
 			InputSplit split, TaskAttemptContext context) throws IOException,
 			InterruptedException {
 		// TODO A	uto-generated method stub
 				
-		return new MR3RecordReader();
+		return new MR4RecordReader();
 	}
 
 }

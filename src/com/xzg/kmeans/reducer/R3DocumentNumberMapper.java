@@ -27,25 +27,32 @@ public class R3DocumentNumberMapper
 			Context context) throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
 		HashMap<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue> hm = new HashMap<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue>();
-		WordDocumentKey wdTmp = new WordDocumentKey();
-		WordNumDocumentWordNumDocumentNumValue wndwndnTmp = new WordNumDocumentWordNumDocumentNumValue();
+		
 		Long docs = 0L;
 		for (DocumentWordNumDocumentWordNumValue docwndwn : values) {
+			
+			WordDocumentKey wdTmp = new WordDocumentKey();
+			WordNumDocumentWordNumDocumentNumValue wndwndnTmp = new WordNumDocumentWordNumDocumentNumValue();
+			
 			docs++;
 			wdTmp.setWord(key.toString());
 			wdTmp.setDocumentNum(docwndwn.getDocumentId());
+	
 			wndwndnTmp.setWordNum(docwndwn.getWordNum());
 			wndwndnTmp.setDocumentWordNum(docwndwn.getDocumentWordNum());
 			hm.put(wdTmp, wndwndnTmp);
 		}
+		
 		Iterator itr = hm.entrySet().iterator();
 		while (itr.hasNext()) {
 			Entry<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue> entry = (Entry<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue>) itr
 					.next();
-			wd = entry.getKey();
+			
+			wd = (WordDocumentKey)entry.getKey();
 			wndwndn = entry.getValue();
 			wndwndn.setDocumentNum(docs);
-			context.write(wdTmp, wndwndn);
+			
+			context.write(wd, wndwndn);
 		}
 
 	}

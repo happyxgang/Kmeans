@@ -19,6 +19,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -41,13 +42,17 @@ import com.xzg.kmeans.io.customtypes.DocumentWordNumDocumentWordNumValue;
 import com.xzg.kmeans.io.customtypes.WordDocumentKey;
 import com.xzg.kmeans.io.customtypes.WordNumDocumentWordNumDocumentNumValue;
 import com.xzg.kmeans.io.customtypes.WordNumDocumentWordNumValue;
+import com.xzg.kmeans.io.customtypes.WordTFIDFValue;
+import com.xzg.kmeans.io.customtypes.WordTFIDFValues;
 import com.xzg.kmeans.io.customtypes.WordWordNumValue;
 import com.xzg.kmeans.mapper.M1WordsPerDocumentMapper;
 import com.xzg.kmeans.mapper.M2DocumentWordNumMapper;
 import com.xzg.kmeans.mapper.M3DocumentNumberMapper;
+import com.xzg.kmeans.mapper.M4TFIDFMapper;
 import com.xzg.kmeans.reducer.R1WordsPerDocumentReducer;
 import com.xzg.kmeans.reducer.R2DocumentWordNumReducer;
 import com.xzg.kmeans.reducer.R3DocumentNumberMapper;
+import com.xzg.kmeans.reducer.R4TFIDFReducer;
 
 /**
  * Example test of the IdentityMapper to demonstrate proper MapDriver usage in a
@@ -71,6 +76,11 @@ public class TestExample {
 	private Reducer<Text, DocumentWordNumDocumentWordNumValue, WordDocumentKey, WordNumDocumentWordNumDocumentNumValue> reducer3;
 	private MapDriver<WordDocumentKey, WordNumDocumentWordNumValue, Text, DocumentWordNumDocumentWordNumValue> mdriver3;
 	private ReduceDriver<Text, DocumentWordNumDocumentWordNumValue, WordDocumentKey, WordNumDocumentWordNumDocumentNumValue> rdriver3;
+
+	private Mapper<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue, LongWritable, WordTFIDFValue> mapper4;
+	private Reducer<LongWritable, WordTFIDFValue, LongWritable, WordTFIDFValues> reducer4;
+	private MapDriver<WordDocumentKey, WordNumDocumentWordNumDocumentNumValue, LongWritable, WordTFIDFValue> mdriver4;
+	private ReduceDriver<LongWritable, WordTFIDFValue, LongWritable, WordTFIDFValues> rdriver4;
 
 	private WordDocumentKey wd;
 	private IntWritable iOne;
@@ -101,6 +111,12 @@ public class TestExample {
 
 		mdriver3 = MapDriver.newMapDriver(mapper3);
 		rdriver3 = ReduceDriver.newReduceDriver(reducer3);
+
+		mapper4 = new M4TFIDFMapper();
+		reducer4 = new R4TFIDFReducer();
+
+		mdriver4 = MapDriver.newMapDriver(mapper4);
+		rdriver4 = ReduceDriver.newReduceDriver(reducer4);
 
 		iOne = new IntWritable(1);
 		iTwo = new IntWritable(2);
@@ -138,7 +154,7 @@ public class TestExample {
 				lOne,
 				Arrays.asList(new WordWordNumValue("xzg", 2),
 						new WordWordNumValue("xzg", 2)))
-				.withOutput(wd, new WordNumDocumentWordNumValue(4, 4L))
+				.withOutput(wd, new WordNumDocumentWordNumValue(4L, 4L))
 				.runTest();
 	}
 
@@ -159,9 +175,9 @@ public class TestExample {
 	@Test
 	public void TestM3() {
 		mdriver3.withInput(new WordDocumentKey("xzg", 1L),
-				new WordNumDocumentWordNumValue(2, 4L))
+				new WordNumDocumentWordNumValue(2L, 4L))
 				.withOutput(new Text("xzg"),
-						new DocumentWordNumDocumentWordNumValue(1L, 2, 4L))
+						new DocumentWordNumDocumentWordNumValue(1L, 2L, 4L))
 				.runTest();
 
 	}
@@ -170,10 +186,32 @@ public class TestExample {
 	public void TestR3() {
 		rdriver3.withInput(
 				new Text("xzg"),
-				Arrays.asList(new DocumentWordNumDocumentWordNumValue(1L, 2, 4L)))
+				Arrays.asList(new DocumentWordNumDocumentWordNumValue(1L, 2L,
+						4L),
+						new DocumentWordNumDocumentWordNumValue(2L, 2L, 4L)))
 				.withOutput(new WordDocumentKey("xzg", 1L),
-						new WordNumDocumentWordNumDocumentNumValue(2, 4L, 1L))
+						new WordNumDocumentWordNumDocumentNumValue(2L, 4L, 2L))
+				.withOutput(new WordDocumentKey("xzg", 2L),
+						new WordNumDocumentWordNumDocumentNumValue(2L, 4L, 2L))
 				.runTest();
+	}
+
+	@Test
+	public void TestM4() {
+		mdriver4 
+		.withInput(new WordDocumentKey("xzg", 1L),
+				new WordNumDocumentWordNumDocumentNumValue(2L, 4L, 100L))
+//				.withInput(new WordDocumentKey("xzg", 2L),
+//						new WordNumDocumentWordNumDocumentNumValue(2L, 4L, 2L))
+//				.withOutput(new LongWritable(1L),new WordTFIDFValues(Arrays.asList(new WordTFIDFValue("xzg",0.5))))
+				.withOutput(new LongWritable(1L),new WordTFIDFValue("xzg",0.5));
+//				.runTest();
+	}
+	@Test
+	public void TestR4(){
+		rdriver4.withInput(lOne, Arrays.asList(new WordTFIDFValue("xzg11",0.5),new WordTFIDFValue("xzg11",0.5)))
+		.withOutput(lOne, new WordTFIDFValues(new PriorityQueue(Arrays.asList(new WordTFIDFValue("xzg11",0.5),new WordTFIDFValue("xzg11",0.5)))))
+		.runTest();
 	}
 
 }

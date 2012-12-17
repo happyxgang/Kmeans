@@ -8,7 +8,7 @@ import org.apache.hadoop.io.WritableComparable;
 
 public class DocumentWordNumDocumentWordNumValue implements WritableComparable {
 	Long documentId;
-	Integer wordNum;
+	Long wordNum;
 	Long documentWordNum;
 
 	public Long getDocumentId() {
@@ -19,11 +19,11 @@ public class DocumentWordNumDocumentWordNumValue implements WritableComparable {
 		this.documentId = documentId;
 	}
 
-	public Integer getWordNum() {
+	public Long getWordNum() {
 		return wordNum;
 	}
 
-	public void setWordNum(Integer wordNum) {
+	public void setWordNum(Long wordNum) {
 		this.wordNum = wordNum;
 	}
 
@@ -37,12 +37,12 @@ public class DocumentWordNumDocumentWordNumValue implements WritableComparable {
 
 	public DocumentWordNumDocumentWordNumValue() {
 		this.documentId = 0L;
-		this.wordNum = 0;
+		this.wordNum = 0L;
 		this.documentWordNum = 0L;
 	}
 
 	public DocumentWordNumDocumentWordNumValue(Long documentId,
-			Integer wordNum, Long documentNum) {
+			Long wordNum, Long documentNum) {
 		super();
 		this.documentId = documentId;
 		this.wordNum = wordNum;
@@ -71,7 +71,7 @@ public class DocumentWordNumDocumentWordNumValue implements WritableComparable {
 	public void readFields(DataInput in) throws IOException {
 		// TODO Auto-generated method stub
 		this.documentId = in.readLong();
-		this.wordNum = in.readInt();
+		this.wordNum = in.readLong();
 		this.documentWordNum = in.readLong();
 	}
 
@@ -79,7 +79,7 @@ public class DocumentWordNumDocumentWordNumValue implements WritableComparable {
 	public void write(DataOutput out) throws IOException {
 		// TODO Auto-generated method stub
 		out.writeLong(this.documentId);
-		out.writeInt(this.wordNum);
+		out.writeLong(this.wordNum);
 		out.writeLong(this.documentWordNum);
 	}
 

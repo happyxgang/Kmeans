@@ -4,19 +4,18 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableComparable;
 
 public class WordNumDocumentWordNumValue implements WritableComparable {
 
-	Integer wordNum;
+	Long wordNum;
 	Long documentWordNum;
 	
-	public int getWordNum() {
+	public Long getWordNum() {
 		return wordNum;
 	}
 
-	public void setWordNum(int wordNum) {
+	public void setWordNum(Long wordNum) {
 		this.wordNum = wordNum;
 	}
 
@@ -29,11 +28,11 @@ public class WordNumDocumentWordNumValue implements WritableComparable {
 	}
 
 	public WordNumDocumentWordNumValue() {
-		wordNum = 0;
+		wordNum = 0L;
 		documentWordNum = 0L;
 	}
 
-	public WordNumDocumentWordNumValue(int wordNum, Long documentNum) {
+	public WordNumDocumentWordNumValue(Long wordNum, Long documentNum) {
 
 		this.wordNum = wordNum;
 		this.documentWordNum = documentNum;
@@ -42,14 +41,14 @@ public class WordNumDocumentWordNumValue implements WritableComparable {
 	@Override
 	public void readFields(DataInput in) throws IOException {
 		// TODO Auto-generated method stub
-		this.wordNum = in.readInt();
+		this.wordNum = in.readLong();
 		this.documentWordNum = in.readLong();
 	}
 
 	@Override
 	public void write(DataOutput out) throws IOException {
 		// TODO Auto-generated method stub
-		out.writeInt(wordNum);
+		out.writeLong(wordNum);
 		out.writeLong(documentWordNum);
 	}
 
@@ -74,7 +73,7 @@ public class WordNumDocumentWordNumValue implements WritableComparable {
 		if (this.wordNum == wndn.getWordNum()) {
 			return this.documentWordNum.compareTo(wndn.getDocumentWordNum());
 		} else {
-			return this.wordNum - wndn.getWordNum();
+			return this.wordNum.compareTo( wndn.getWordNum());
 		}
 	}
 
