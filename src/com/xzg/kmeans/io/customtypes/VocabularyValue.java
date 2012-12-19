@@ -90,7 +90,7 @@ public class VocabularyValue implements WritableComparable {
 	public void readFields(DataInput in) throws IOException {
 		// TODO Auto-generated method stub
 		size = in.readLong();
-		System.out.println("VocabularyValue" + size);
+		//System.out.println("VocabularyValue" + size);
 		Long l = size.longValue();
 		//Long ll = 0L;
 		while(l > 0){

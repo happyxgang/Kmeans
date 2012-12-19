@@ -6,5 +6,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hadoop"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MRunit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jsoup"/>
+	<classpathentry kind="lib" path="/home/kevin/Desktop/mahout-distribution-0.7/core/target/mahout-core-0.7.jar" sourcepath="/home/kevin/Desktop/mahout-distribution-0.7/core/src/main/java"/>
+	<classpathentry kind="lib" path="/home/kevin/Desktop/mahout-distribution-0.7/core/target/mahout-core-0.7-job.jar" sourcepath="/home/kevin/Desktop/mahout-distribution-0.7/core/src/main/java"/>
+	<classpathentry kind="lib" path="/home/kevin/Desktop/mahout-distribution-0.7/math/target/mahout-math-0.7.jar" sourcepath="/home/kevin/Desktop/mahout-distribution-0.7/math/target/mahout-math-0.7-sources.jar"/>
+	<classpathentry kind="lib" path="/home/kevin/Desktop/mahout-distribution-0.7/integration/target/mahout-integration-0.7.jar" sourcepath="/home/kevin/Desktop/mahout-distribution-0.7/integration/target/mahout-integration-0.7-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
