@@ -43,12 +43,11 @@ public class R2DocumentWordNumReducer
 			wndntmp.setDocumentWordNum(0L);
 			
 			hm.put(wdtmp, wndntmp);
-
 		}
 
 		Iterator<Entry<WordDocumentKey, WordNumDocumentWordNumValue>> iter = hm
 				.entrySet().iterator();
-		System.out.println("---------------------");
+		//System.out.println("---------------------");
 		
 		while (iter.hasNext()) {
 			Map.Entry<WordDocumentKey, WordNumDocumentWordNumValue> entry = (Map.Entry) iter

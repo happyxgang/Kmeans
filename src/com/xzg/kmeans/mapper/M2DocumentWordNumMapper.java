@@ -20,9 +20,10 @@ public class M2DocumentWordNumMapper extends
 		docnum.set(key.getDocumentNum());
 		wwn.setWord(key.getWord());
 		wwn.setWordnum(value.get());
-//		System.out.println(docnum);
+//		System.out.print(docnum + " ");
 //		System.out.println(wwn);
 		context.write(docnum, wwn);
+		
 	}
 
 }

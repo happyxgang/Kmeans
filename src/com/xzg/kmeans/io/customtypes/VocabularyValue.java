@@ -33,7 +33,7 @@ public class VocabularyValue implements WritableComparable {
 		Iterator itr = words.iterator();
 		while(itr.hasNext()){
 			String s = (String) itr.next();
-			str = str+"$$" + s;
+			str = str+"  " + s;
 		}
 		
 		return str;

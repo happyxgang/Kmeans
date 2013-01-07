@@ -20,13 +20,14 @@ import org.apache.hadoop.mapreduce.Mapper.Context;
 import org.apache.mahout.math.VectorWritable;
 
 import com.xzg.kmeans.io.customtypes.CustomArrayWritable;
+import com.xzg.kmeans.io.customtypes.CustomHashMapWritable;
 import com.xzg.kmeans.io.customtypes.VocabularyValue;
 import com.xzg.kmeans.io.customtypes.WordTFIDFValue;
 import com.xzg.kmeans.io.customtypes.WordTFIDFValues;
 
 public class M52VocabularyMatrixMapper
 		extends
-		Mapper<LongWritable, WordTFIDFValues, NullWritable, CustomArrayWritable> {
+		Mapper<LongWritable, WordTFIDFValues, LongWritable, CustomHashMapWritable> {
 
 	// VocabularyValue vocabulary = new VocabularyValue();
 	HashMap<String, Double> vocabulary = new HashMap<String, Double>();
@@ -75,10 +76,10 @@ public class M52VocabularyMatrixMapper
 			// context.write(key, value)
 		}
 
-		Vector<Double> array = new Vector<Double>();
-		for (Double d : hm.values()) {
-			array.add(d.doubleValue());
-		}
+//		Vector<Double> array = new Vector<Double>();
+//		for (Double d : hm.values()) {
+//			array.add(d.doubleValue());
+//		}
 		// ArrayWritable set = new ArrayWritable(DoubleWritable.class);
 		// DoubleWritable[] w ;
 		// w = new DoubleWritable[hm.values().size()];
@@ -86,9 +87,9 @@ public class M52VocabularyMatrixMapper
 		//
 //		VectorWritable v = new VectorWritable();
 //		v.set(array);
-		CustomArrayWritable c = new CustomArrayWritable();
-		c.add(array);
-		context.write(NullWritable.get(), c);
+		CustomHashMapWritable c = new CustomHashMapWritable();
+		c.add(hm);
+		context.write(key, c);
 	}
 
 }

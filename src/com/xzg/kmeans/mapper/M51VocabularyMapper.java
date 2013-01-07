@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
@@ -15,7 +16,7 @@ import com.xzg.kmeans.io.customtypes.WordTFIDFValues;
 
 public class M51VocabularyMapper 
 extends
-Mapper<LongWritable, WordTFIDFValues, Text, Text> {
+Mapper<LongWritable, WordTFIDFValues, Text, NullWritable> {
 
 	@Override
 	protected void map(LongWritable key, WordTFIDFValues value,
@@ -24,10 +25,11 @@ Mapper<LongWritable, WordTFIDFValues, Text, Text> {
 		// TODO Auto-generated method stub
 		HashSet<String> hs = new HashSet<String>();
 		Iterator itr = value.getValues().iterator();
+		System.out.println(value);
 		while(itr.hasNext()){
 			WordTFIDFValue w =(WordTFIDFValue) itr.next();
 			System.out.println(w.getWord());
-			context.write(new Text("word"), new Text(w.getWord()));
+			context.write(new Text(w.getWord()), NullWritable.get());
 		}
 	}	
 

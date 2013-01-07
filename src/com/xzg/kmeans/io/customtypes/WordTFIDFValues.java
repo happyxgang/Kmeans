@@ -23,7 +23,7 @@ public class WordTFIDFValues implements WritableComparable {
 //            return w2.compareTo(w1);
 //        }
 //    });
-	PriorityQueue<WordTFIDFValue> values = new PriorityQueue<WordTFIDFValue>(30);
+	private PriorityQueue<WordTFIDFValue> values; 
 	private Long size;
 	private final Long MaxSize = 30L;
 	@Override
@@ -89,10 +89,12 @@ public class WordTFIDFValues implements WritableComparable {
 	public WordTFIDFValues(PriorityQueue<WordTFIDFValue> values) {
 		super();
 		this.values = values;
+		size = Long.valueOf(values.size());
 	}
 
 	public WordTFIDFValues() {
 		size = 0L;
+		values = new PriorityQueue<WordTFIDFValue>(30);
 	}
 
 	@Override
@@ -107,6 +109,8 @@ public class WordTFIDFValues implements WritableComparable {
 	@Override
 	public void readFields(DataInput in) throws IOException {
 		// TODO Auto-generated method stub
+		values.clear();
+		size = Long.valueOf(values.size());
 		Long l = in.readLong();
 		//System.out.println("WordTFIDFValues ReadField: " + size);
 //		long l = size.longValue();
@@ -115,7 +119,6 @@ public class WordTFIDFValues implements WritableComparable {
 			WordTFIDFValue wTFIDFTmp = new WordTFIDFValue();
 			
 //			wTFIDFTmp.setWord(in.readUTF());
-		
 //			wTFIDFTmp.setTfidf(in.readDouble());
 			wTFIDFTmp.readFields(in);
 			add(wTFIDFTmp);
@@ -123,20 +126,22 @@ public class WordTFIDFValues implements WritableComparable {
 //			System.out.println(wTFIDFTmp.getWord());
 //			System.out.println(wTFIDFTmp);
 		}
+	
+		size = Long.valueOf(this.values.size());
 	}
 
 	@Override
 	public void write(DataOutput out) throws IOException {
 		// TODO Auto-generated method stub
-		out.writeLong(this.size);
-		System.out.println(this.size);
+		out.writeLong(Long.valueOf(this.values.size()));
+		//System.out.println(this.size);
 		int ll = 0;
 		for (WordTFIDFValue value : values) {
-			System.out.println(value.getWord());
+			//System.out.println(value.getWord());
 			value.write(out);
 			ll++;
 		}
-		System.out.println("WordTFIDFValues Write" + size);
+		//System.out.println("WordTFIDFValues Write" + size);
 
 	}
 

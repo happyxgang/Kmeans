@@ -28,10 +28,6 @@ public class R4TFIDFReducer extends
 			wordTFIDFValue.setTfidf(value.getTfidf());
 			wordTFIDFValue.setWord(value.getWord());
 			wTFIDFValues.add(wordTFIDFValue);
-			
-			
-			//需要修改
-			//wTFIDFValues.setSize(wTFIDFValues.getSize() + 1);
 		}
 		context.write(key, wTFIDFValues);
 	}
